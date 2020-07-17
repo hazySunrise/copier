@@ -1,0 +1,42 @@
+<Configuration>
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+					pattern="[%level] %d{yyyy-MM-dd HH:mm:ss:SSS} [%thread] %l - %msg%n" />
+		</Console>
+
+		<JDBC name="JDBC" tableName="system_log">
+			<ThresholdFilter level="INFO" />
+			<ConnectionFactory
+					class="com.jimi.mes_dbcopier.config.MesConfig"
+					method="getLog4j2JDBCAppenderConnection" />
+			<Column name="time" pattern="%d{yyyy-MM-dd HH:mm:ss:SSS}" />
+			<Column name="level" pattern="%level" />
+			<Column name="thread" pattern="%thread" />
+			<Column name="position" pattern="%l" />
+			<Column name="message" pattern="%msg" />
+		</JDBC>
+
+		<!--smtpProtocol默认为smtp，但如果使用QQ邮箱，需要改成smtps-->
+		<SMTP name="SMTP" subject="Emergency: An Error Log Email !!!"
+			  from="1022219786@qq.com" to="1022219786@qq.com" smtpHost="smtp.qq.com"
+			  smtpPort="465" smtpUsername="1022219786@qq.com"
+			  smtpPassword="********"
+			  smtpDebug="false"
+			  smtpProtocol="smtps"
+		>
+
+			<ThresholdFilter level="ERROR" />
+		</SMTP>
+	</Appenders>
+
+	<Loggers>
+		<Root level="DEBUG">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="JDBC" />
+			<AppenderRef ref="SMTP"/>
+		</Root>
+	</Loggers>
+
+</Configuration>

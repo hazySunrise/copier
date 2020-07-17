@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <code>4500000001</code>
+
+    <source>
+        <url>jdbc:sqlserver://218.14.125.36:1433;DatabaseName=GPSTest</url>
+        <username>sa</username>
+        <password>sa123abc</password>
+        <dbtype>sqlserver</dbtype>
+        <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+    </source>
+    <dest>
+        <url>jdbc:sqlserver://10.10.11.90:6033;DatabaseName=MyTest</url>
+        <username>sa</username>
+        <password>jiminewpower</password>
+        <dbtype>sqlserver</dbtype>
+        <driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver>
+    </dest>
+    <cron>0 40,13,15,17 11 * * ?</cron>
+    <jobs>
+        <job>
+            <name>1</name>
+            <srcSql>select * from Gps_TestResult</srcSql>
+            <destTable>Gps_TestResult</destTable>
+            <destTableFields>SN,IMEI,SoftModel,Version,FunctionResult,GPSResult,CoupleResult,WriteImeiResult,
+                ParamDownloadResult,AutoTestResult,AutoTestSMTResult,SMTIQCResult,WeightResult,OtherTestSign,ZhiDan,
+                RecordTime,CPResult,OQCResult01,OQCResult02</destTableFields>
+            <destTableKey>SN,SoftModel,Version</destTableKey>
+            <destTableUpdate>FunctionResult,RecordTime</destTableUpdate>
+        </job>
+    </jobs>
+</root>
